@@ -6,8 +6,7 @@ scikit-learn==1.5.1
 xgboost==3.0.0
 joblib==1.4.2
 python-multipart==0.0.6 
-altair
+
 bcrypt
 streamlit
-re
-requests
+
