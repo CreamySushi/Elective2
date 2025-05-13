@@ -2,6 +2,10 @@ import streamlit as st
 import bcrypt
 import sqlite3
 import re
+from utils.styles import sidebar_styles, hide_streamlit_style
+
+st.markdown(sidebar_styles(), unsafe_allow_html=True)
+st.markdown(hide_streamlit_style(), unsafe_allow_html=True)
 
 conn = sqlite3.connect('calorie_history.db', check_same_thread=False)
 c = conn.cursor()

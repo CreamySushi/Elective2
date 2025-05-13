@@ -1,38 +1,50 @@
 def sidebar_styles():
     return """
     <style>
-    div.stButton > button {
-        font-size: 14px;
-        font-weight: 400;
-        color: white;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        text-align: left;
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0, 0, 0, 0.5); 
+        backdrop-filter: blur(10px);
     }
-    }
-    </style>
-    """
-def hide_streamlit_style():
-    return """
-    <style>
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
     </style>
     """
 
-def background_main():
+def hide_streamlit_style():
     return """
     <style>
-    [data-testid="stAppViewContainer"] {
-        background-image: url('https://t3.ftcdn.net/jpg/04/29/35/62/360_F_429356296_CVQ5LkC6Pl55kUNLqLisVKgTw9vjyif1.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+    footer {
+        visibility: hidden;
     }
-    [data-testid="stHeader"] {
-        background-color: rgba(0, 0, 0, 0.5);
+
+    footer:after {
+        content: "";
+        visibility: hidden;
+    }
+
+    
+    MainMenu {
+        visibility: hidden;
+    }
+
+    header {
+        visibility: hidden;
+    }
+    </style>
+    """
+
+
+def text_outline_styles():
+    return """
+    <style>
+
+    h1, h2, h3, h4, h5, h6,
+    p, span, div, label {
+        color: white !important;
+        text-shadow:
+            -1px -1px 0 #000,  
+             1px -1px 0 #000,
+            -1px  1px 0 #000,
+             1px  1px 0 #000;
+        font-family: 'Segoe UI', sans-serif;
     }
     </style>
     """
