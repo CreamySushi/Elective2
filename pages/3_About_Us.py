@@ -63,8 +63,33 @@ background_style = """
         height: 100%;
         background-color: rgba(0, 0, 0, 0.45); /* Adjust the 0.45 for more/less dim */
         z-index: 0;
-    }
+    .about-section, .team-section {
+    color: white;
+    text-align: justify;
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    font-size: 15px;
+}
 
+.team-section h2 {
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .about-section, .team-section {
+        font-size: 13px;
+        padding: 10px;
+    }
+    .team-section h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+    ul {
+        padding-left: 20px;
+    }
+}
 </style>
 """
 st.markdown(background_style, unsafe_allow_html=True)
