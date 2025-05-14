@@ -6,7 +6,7 @@ st.markdown(hide_streamlit_style(), unsafe_allow_html=True)
 
 
 st.markdown("""
-    <div style="color: white; text-align: justify; width: 90%; margin: auto; padding: 20px;font-size: 15px;">
+    <div class="about-section" style="color: white; text-align: justify; width: 90%; margin: auto; padding: 20px;font-size: 15px;">
         <br><br><br><br><br><br><br><br>
         <p>
         Welcome to <strong>CALORIE BURN PREDICTOR</strong> — where smart tech meets your fitness goals!
@@ -28,7 +28,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-    <div style="color: white; text-align: justify; width: 90%; margin: auto; padding: 20px;font-size: 20px;">
+    <div class="Team-section" style="color: white; text-align: justify; width: 90%; margin: auto; padding: 20px;font-size: 20px;">
         <h2>Meet the Team</h2>
         <ul>
             <li><strong>Recto Sean Rainer</strong> - Project Manager</li>
@@ -71,22 +71,23 @@ background_style = """
     margin: auto;
     padding: 20px;
     font-size: 15px;
-}
-
-.team-section h2 {
-    font-size: 22px;
-    margin-top: 30px;
-}
+    }
+    .team-section h2 {
+        font-size: 22px;
+        margin-top: 30px;
+    }
 
 @media screen and (max-width: 768px) {
     .about-section, .team-section {
         font-size: 13px;
         padding: 10px;
     }
+
     .team-section h2 {
         font-size: 18px;
         text-align: center;
     }
+
     ul {
         padding-left: 20px;
     }
