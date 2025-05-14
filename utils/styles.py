@@ -48,3 +48,21 @@ def text_outline_styles():
     }
     </style>
     """
+
+def side_bar_button_style():
+    return """
+    <style>
+    section[data-testid="stSidebar"] div.stButton > button {
+        background-color: transparent;
+        text-weight: Bold;
+        font-size: 30px;
+        padding-right: 20px;
+        border-radius: 10px;
+        border: none !important;
+        cursor: pointer;
+        font-family: inherit !important;
+        hover: {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+    """

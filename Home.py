@@ -1,19 +1,20 @@
 import streamlit as st
 
-# Set page configuration as the first Streamlit command
 st.set_page_config(page_title="Calorie Burn Predictor", page_icon="calories.ico", initial_sidebar_state="collapsed", layout="wide")
 
+# Same main folder use from import to call the functions
 from views.login import Show_Login_Screen
 from views.signup import Show_Sign_Up_Screen
 from views.forgot_password import Show_Forgot_Password_Screen
 from views.main_app import Show_Main_Screen
 from utils.init import setup_session_state, initialize_database, Show_Splash_Screen
-from utils.styles import sidebar_styles, hide_streamlit_style,text_outline_styles
+from utils.styles import sidebar_styles, hide_streamlit_style, side_bar_button_style
 
 
 setup_session_state()
 initialize_database()
 
+#Background Image
 background_style = """
 <style>
     [data-testid="stAppViewContainer"] {
@@ -39,9 +40,13 @@ background_style = """
 </style>
 """
 st.markdown(background_style, unsafe_allow_html=True)
+
+# calling the style for the sidebar
 st.markdown(hide_streamlit_style(), unsafe_allow_html=True)
 st.markdown(sidebar_styles(), unsafe_allow_html=True)
+st.markdown(side_bar_button_style(), unsafe_allow_html=True)
 
+# Initialize session state
 if not st.session_state.splash_shown:
     Show_Splash_Screen()
     st.session_state.splash_shown = True
@@ -52,15 +57,13 @@ if st.session_state.logged_in:
         st.markdown(
             f"""
             <div style="font-size: 25px; font-weight: 500; padding: 0.5rem 0; color: white;">
-                Welcome, {st.session_state.username}
+                <strong>Welcome</strong>, {st.session_state.username}
             </div>
             """, unsafe_allow_html=True
         )
         st.markdown("--------", unsafe_allow_html=True)
-        st.markdown("<br>", unsafe_allow_html=True)
         if st.button("Refresh"):
             st.rerun()
-
         if st.button("Logout"):
             st.session_state.logged_in = False
             st.session_state.username = None
