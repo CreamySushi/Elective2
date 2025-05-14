@@ -3,7 +3,7 @@ import requests
 import altair as alt
 import pandas as pd
 import sqlite3
-
+from datetime import datetime
 conn = sqlite3.connect('calorie_history.db', check_same_thread=False)
 c = conn.cursor()
 
@@ -12,6 +12,8 @@ c = conn.cursor()
 def Show_Main_Screen():
     
     st.title("🔥 Calorie Burn Predictor")
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     api_url = "https://electibz-api.onrender.com/predict/"
     if "history" not in st.session_state:
         st.session_state.history = []
@@ -23,9 +25,8 @@ def Show_Main_Screen():
 
     if st.session_state.admin:
         st.subheader("📜 All Users' Prediction History ")
-
         c.execute('''
-            SELECT username, gender, age, height, weight, duration, heart_rate, body_temp, calories_burned
+            SELECT username, gender, age, height, weight, duration, heart_rate, body_temp, calories_burned, Date
             FROM history
         ''')
         data = c.fetchall()
@@ -33,7 +34,7 @@ def Show_Main_Screen():
         if data:
             df = pd.DataFrame(data, columns=[
                 "Username", "Gender", "Age", "Height (cm)", "Weight (kg)",
-                "Duration (min)", "Heart Rate", "Body Temp (°C)", "Calories Burned"
+                "Duration (min)", "Heart Rate", "Body Temp (°C)", "Calories Burned", "Date"
             ])
             st.data_editor(df, use_container_width=True, disabled=True)
         else:
@@ -49,7 +50,9 @@ def Show_Main_Screen():
     heart_rate = st.number_input("Heart Rate", min_value=30, max_value=200, value=100)
     body_temp = st.number_input("Body Temperature (°C)", min_value=30.0, max_value=45.0, value=37.0, step=1.0)
     
+
     if st.button("Predict Calories Burned"):
+
         data = [{
         "Gender": 1 if gender.lower() == "male" else 0,
         "Age": age,
@@ -57,7 +60,8 @@ def Show_Main_Screen():
         "Weight": weight,
         "Duration": duration,
         "Heart_Rate": heart_rate,
-        "Body_Temp": body_temp
+        "Body_Temp": body_temp,
+        "Date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }]
 
     
@@ -79,9 +83,9 @@ def Show_Main_Screen():
 
                 # Save to database
                 c.execute('''
-                    INSERT INTO history (username, gender, age, height, weight, duration, heart_rate, body_temp, calories_burned)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ''', (st.session_state.username, gender, age, height, weight, duration, heart_rate, body_temp, round(prediction, 2)))
+                    INSERT INTO history (username, gender, age, height, weight, duration, heart_rate, body_temp, calories_burned, Date)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ''', (st.session_state.username, gender, age, height, weight, duration, heart_rate, body_temp, round(prediction, 2), current_time))
                 conn.commit()
 
             except requests.exceptions.RequestException as e:
@@ -93,13 +97,13 @@ def Show_Main_Screen():
         st.subheader("Prediction History")
 
         c.execute('''
-            SELECT gender, age, height, weight, duration, heart_rate, body_temp, calories_burned
+            SELECT gender, age, height, weight, duration, heart_rate, body_temp, calories_burned, Date
             FROM history WHERE username = ?
         ''', (st.session_state.username,))
         data = c.fetchall()
 
         if data:
-            df = pd.DataFrame(data, columns=["Gender", "Age", "Height (cm)", "Weight (kg)","Duration (min)", "Heart Rate", "Body Temp (°C)", "Calories Burned"])
+            df = pd.DataFrame(data, columns=["Gender", "Age", "Height (cm)", "Weight (kg)","Duration (min)", "Heart Rate", "Body Temp (°C)", "Calories Burned", "Date"])
             st.dataframe(df)
         else:
             st.info("No history found yet.")
@@ -120,7 +124,8 @@ def Show_Main_Screen():
                 "Weight": weight,
                 "Duration": d,
                 "Heart_Rate": heart_rate,
-                "Body_Temp": body_temp
+                "Body_Temp": body_temp,
+                "Date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }]
             response = requests.post(api_url, json=temp_data)
             if response.status_code == 200:

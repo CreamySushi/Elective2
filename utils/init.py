@@ -25,7 +25,7 @@ def initialize_database():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT, gender TEXT, age INTEGER, height REAL,
         weight REAL, duration INTEGER, heart_rate INTEGER, 
-        body_temp REAL, calories_burned REAL)''')
+        body_temp REAL, calories_burned REAL, Date TEXT)''')
 
     admin_email = "Admin123@administrator.com"
     admin_password = "group3admin"
