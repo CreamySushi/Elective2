@@ -19,6 +19,7 @@ def Show_Forgot_Password_Screen():
     # Check for email format like @something.com
     email_regex = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
+    # Update password in the database
     if st.button("Reset Password"):
         if not email or not password or not password_confirm:
             st.error("Please fill in all fields.")

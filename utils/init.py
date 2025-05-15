@@ -17,16 +17,19 @@ def initialize_database():
     conn = sqlite3.connect('calorie_history.db')
     c = conn.cursor()
 
+    # Create Users Table
     c.execute('''CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE, email TEXT UNIQUE, password TEXT)''')
 
+    # Create History Table
     c.execute('''CREATE TABLE IF NOT EXISTS history (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT, gender TEXT, age INTEGER, height REAL,
         weight REAL, duration INTEGER, heart_rate INTEGER, 
         body_temp REAL, calories_burned REAL, Date TEXT)''')
 
+    # Hardcoded admin user
     admin_email = "Admin123@administrator.com"
     admin_password = "group3admin"
     c.execute("SELECT * FROM users WHERE email = ?", (admin_email,))
@@ -37,6 +40,7 @@ def initialize_database():
     conn.commit()
     conn.close()
 
+# Initialize Splash Screen
 def Show_Splash_Screen():
     splash = st.empty()
     splash.markdown("""

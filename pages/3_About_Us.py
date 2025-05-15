@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.styles import sidebar_styles, text_outline_styles, hide_streamlit_style
+
 st.markdown(sidebar_styles(), unsafe_allow_html=True)
 st.markdown(text_outline_styles(), unsafe_allow_html=True)
 st.markdown(hide_streamlit_style(), unsafe_allow_html=True)
@@ -40,7 +41,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-
+# Background Image can't set on the styles file, so it is set here
 background_style = """
 <style>
     [data-testid="stAppViewContainer"] {
@@ -94,4 +95,4 @@ background_style = """
 }
 </style>
 """
-st.markdown(background_style, unsafe_allow_html=True)
+st.markdown(background_style, unsafe_allow_html=True) #allow html is set to true to allow the background image to be set

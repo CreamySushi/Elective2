@@ -14,7 +14,7 @@ def Show_Main_Screen():
     st.title("🔥 Calorie Burn Predictor")
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    api_url = "https://electibz-api.onrender.com/predict/"
+    api_url = "https://electibz-api.onrender.com/predict/" 
     if "history" not in st.session_state:
         st.session_state.history = []
         
@@ -30,7 +30,8 @@ def Show_Main_Screen():
             FROM history
         ''')
         data = c.fetchall()
-
+        
+        # Check if there is any data
         if data:
             df = pd.DataFrame(data, columns=[
                 "Username", "Gender", "Age", "Height (cm)", "Weight (kg)",
